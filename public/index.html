@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumen Frontend (Minimal)</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+        button { padding: 10px; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Lumen Multi-Agent Demo</h1>
+    
+    <div class="section">
+        <h2>1. Run Session</h2>
+        <label>Ticker: <input type="text" id="ticker" value="RELIANCE"></label>
+        <label>Risk Profile: 
+            <select id="riskProfile">
+                <option value="moderate" selected>Moderate</option>
+                <option value="aggressive">Aggressive</option>
+                <option value="conservative">Conservative</option>
+            </select>
+        </label>
+        <br><br>
+        <button onclick="runSession()">Analyze Market</button>
+        <div id="sessionStatus"></div>
+        <pre id="sessionOutput"></pre>
+    </div>
+
+    <div class="section" id="counterfactualSection" style="display:none;">
+        <h2>2. Counterfactual (Wow Factor)</h2>
+        <p>Test a different risk profile against the exact same agent evidence:</p>
+        <label>Target Profile: 
+            <select id="targetProfile">
+                <option value="aggressive">Aggressive</option>
+                <option value="conservative">Conservative</option>
+                <option value="moderate">Moderate</option>
+            </select>
+        </label>
+        <button onclick="runCounterfactual()">Run Counterfactual</button>
+        <div id="cfStatus"></div>
+        <pre id="cfOutput"></pre>
+    </div>
+
+    <script>
+        let lastLog = null;
+
+        async function runSession() {
+            const ticker = document.getElementById('ticker').value;
+            const riskProfile = document.getElementById('riskProfile').value;
+            
+            document.getElementById('sessionStatus').innerText = 'Running 3 parallel agents...';
+            document.getElementById('sessionOutput').innerText = '';
+            
+            try {
+                const response = await fetch('/api/session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ticker, riskProfile })
+                });
+                
+                const data = await response.json();
+                lastLog = data;
+                
+                document.getElementById('sessionStatus').innerText = 'Analysis Complete!';
+                document.getElementById('sessionOutput').innerText = JSON.stringify(data, null, 2);
+                
+                // Show counterfactual section
+                document.getElementById('counterfactualSection').style.display = 'block';
+                
+            } catch (err) {
+                document.getElementById('sessionStatus').innerText = 'Error: ' + err.message;
+            }
+        }
+
+        async function runCounterfactual() {
+            if (!lastLog) return;
+            
+            const targetProfile = document.getElementById('targetProfile').value;
+            document.getElementById('cfStatus').innerText = 'Running counterfactual...';
+            document.getElementById('cfOutput').innerText = '';
+            
+            try {
+                const response = await fetch('/api/counterfactual', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ log: lastLog, targetProfile })
+                });
+                
+                const data = await response.json();
+                
+                document.getElementById('cfStatus').innerText = 'Counterfactual Complete!';
+                document.getElementById('cfOutput').innerText = JSON.stringify(data, null, 2);
+                
+            } catch (err) {
+                document.getElementById('cfStatus').innerText = 'Error: ' + err.message;
+            }
+        }
+    </script>
+</body>
+</html>
