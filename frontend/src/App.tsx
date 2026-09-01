@@ -37,7 +37,17 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ticker: ticker.trim().toUpperCase(), riskProfile }),
       });
-      const data = await response.json();
+      const text = await response.text();
+      let data;
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch (parseError) {
+        if (!response.ok) {
+          throw new Error(`Server error (${response.status}): ${text || 'Empty response'}`);
+        }
+        throw new Error('Invalid JSON received from server');
+      }
+
       if (!response.ok) {
         throw new Error(data.error || `Server error (${response.status})`);
       }
@@ -64,7 +74,17 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ log: sessionLog, targetProfile }),
       });
-      const data = await response.json();
+      const text = await response.text();
+      let data;
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch (parseError) {
+        if (!response.ok) {
+          throw new Error(`Server error (${response.status}): ${text || 'Empty response'}`);
+        }
+        throw new Error('Invalid JSON received from server');
+      }
+      
       if (!response.ok) throw new Error(data.error || 'API Error');
       setCfLog(data);
     } catch (err: any) {

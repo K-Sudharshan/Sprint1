@@ -23,6 +23,8 @@ app.post('/api/session', async (req, res) => {
       return res.status(400).json({ error: 'Missing ticker or riskProfile' });
     }
 
+
+
     const profile: UserProfile = {
       id: 'web_user',
       riskProfile,
@@ -46,6 +48,8 @@ app.post('/api/counterfactual', async (req, res) => {
     if (!log || !targetProfile) {
       return res.status(400).json({ error: 'Missing log or targetProfile' });
     }
+
+
 
     const diff = await runCounterfactual(
       log.agentOutputs.marketSignal,
