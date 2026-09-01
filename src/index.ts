@@ -185,7 +185,7 @@ async function main() {
   
   const ticker = 'RELIANCE';
   console.log(`\n======================================================`);
-  console.log(` Starting Lumen Multi-Agent Session for ${ticker}`);
+  console.log(` Starting Kaleidos Multi-Agent Session for ${ticker}`);
   console.log(`======================================================\n`);
   const log = await runSession(ticker, profile);
   

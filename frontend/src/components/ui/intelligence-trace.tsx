@@ -239,7 +239,7 @@ export function IntelligenceTrace({ sessionLog, cfLog }: { sessionLog: SessionLo
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              {sessionLog.metrics.telemetry.map((t) => (
+              {sessionLog.metrics?.telemetry?.map((t) => (
                 <div key={t.agentName} className="p-3 border border-neutral-900 rounded bg-black">
                   <div className="text-[10px] font-mono text-neutral-600 mb-1">{t.displayName} Duration</div>
                   <div className={`text-sm ${t.status === 'success' ? 'text-neutral-300' : 'text-rose-400'}`}>{t.durationMs}ms</div>

@@ -68,7 +68,7 @@ async function startServer() {
     await initializeCorpus();
     console.log('Corpus Initialized.');
     app.listen(port, () => {
-        console.log(`\n🚀 Lumen server running on http://localhost:${port}`);
+        console.log(`\n🚀 Kaleidos server running on http://localhost:${port}`);
     });
 }
 startServer().catch(console.error);

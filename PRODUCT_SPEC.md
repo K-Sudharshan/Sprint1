@@ -1,12 +1,12 @@
 # Product Name
 
-**Lumen** — Explainable Multi-Agent Investment Intelligence for Retail Investors
+**Kaleidos** — Explainable Multi-Agent Investment Intelligence for Retail Investors
 
 ---
 
 # One-Line Pitch
 
-Lumen turns public market data, filings, and sentiment into a personalized, fully-cited investment recommendation in under 60 seconds — and shows exactly how the recommendation would change if you were a different kind of investor.
+Kaleidos turns public market data, filings, and sentiment into a personalized, fully-cited investment recommendation in under 60 seconds — and shows exactly how the recommendation would change if you were a different kind of investor.
 
 ---
 
@@ -14,7 +14,7 @@ Lumen turns public market data, filings, and sentiment into a personalized, full
 
 India's retail investing problem is not data scarcity — NSE feeds, SEBI filings, FII flows, and options chain data are all public. The failure is in synthesis: no tool coordinates multiple independent research lenses (technical, fundamental/regulatory, sentiment) into a single reasoned, personalized, transparently-justified recommendation the way a hedge fund's parallel analyst desks do for institutional clients. With 130M new Indian retail investors in four years (80% under 30) and 89% of F&O participants losing money, the gap is infrastructural, not informational.
 
-Lumen closes that gap by running specialized agents in parallel over the same market event, grounding their claims in retrieved source documents, personalizing the synthesis to the individual investor's risk profile, and exposing the full reasoning chain — confidence, evidence, conflicts, and uncertainty — at every step.
+Kaleidos closes that gap by running specialized agents in parallel over the same market event, grounding their claims in retrieved source documents, personalizing the synthesis to the individual investor's risk profile, and exposing the full reasoning chain — confidence, evidence, conflicts, and uncertainty — at every step.
 
 ---
 
@@ -28,7 +28,7 @@ Lumen closes that gap by running specialized agents in parallel over the same ma
 
 # Product Vision
 
-Lumen is the retail investor's parallel analyst desk: a coordinated set of AI agents that continuously reason over the same market event from different angles — technical, fundamental/regulatory, and sentiment — and synthesize their findings into a single recommendation that is explicitly shaped by *who is asking*. Every claim Lumen makes is traceable to a source, every recommendation states its confidence and its blind spots, and every personalization decision can be explained in terms of the specific risk constraint that drove it. Lumen's long-term vision is to be the trust layer between public market data and retail decision-making — not a signal generator, but a reasoning system an investor can interrogate.
+Kaleidos is the retail investor's parallel analyst desk: a coordinated set of AI agents that continuously reason over the same market event from different angles — technical, fundamental/regulatory, and sentiment — and synthesize their findings into a single recommendation that is explicitly shaped by *who is asking*. Every claim Kaleidos makes is traceable to a source, every recommendation states its confidence and its blind spots, and every personalization decision can be explained in terms of the specific risk constraint that drove it. Kaleidos's long-term vision is to be the trust layer between public market data and retail decision-making — not a signal generator, but a reasoning system an investor can interrogate.
 
 ---
 
@@ -40,7 +40,7 @@ Lumen is the retail investor's parallel analyst desk: a coordinated set of AI ag
 4. The Synthesis Layer combines the three agent outputs into one recommendation, resolving or flagging conflicts.
 5. The User Profiling Layer applies the active investor's stored risk profile to reweight and reshape the synthesized recommendation.
 6. The interface renders: signal panel (classified, confidence-labeled), synthesized recommendation (source-attributed), and current portfolio/watchlist state.
-7. User asks: *"What would you recommend if I were more aggressive/conservative?"* → Lumen replays the synthesis step under a different risk profile and shows a side-by-side counterfactual explanation.
+7. User asks: *"What would you recommend if I were more aggressive/conservative?"* → Kaleidos replays the synthesis step under a different risk profile and shows a side-by-side counterfactual explanation.
 8. Session metrics (latency, concentration score, confidence calibration) log automatically to the performance log.
 
 ---
@@ -76,7 +76,7 @@ Lumen is the retail investor's parallel analyst desk: a coordinated set of AI ag
 - **Requirement satisfied:** *User profiling component that modifies agent outputs based on stored risk parameters, demonstrably producing different outputs for different profiles on identical market inputs.*
 
 ### Feature 5 — Live Interface (Signals, Synthesis, Portfolio State)
-- **Purpose:** Give the user one live view of everything Lumen knows and concluded.
+- **Purpose:** Give the user one live view of everything Kaleidos knows and concluded.
 - **User input:** Passive — the interface updates as agents complete.
 - **System behavior:** The interface renders three panels in real time: (1) current market signals with classification labels and confidence, (2) synthesized, source-attributed recommendation, (3) current portfolio/watchlist state including position sizes and concentration.
 - **Expected output:** A single-screen live session view (visual styling out of scope for this document).
@@ -103,12 +103,12 @@ Lumen is the retail investor's parallel analyst desk: a coordinated set of AI ag
 **Counterfactual Investment Intelligence: "Same Market, Different You"**
 
 ### What makes this feature unique
-Most personalization demos show three static output cards side-by-side ("here's Conservative, here's Aggressive"). Lumen instead makes personalization *interrogable*: the user asks a live, natural-language counterfactual question — "What would you recommend if I were more aggressive?" — and Lumen replays its own reasoning pipeline under the new profile, then diffs the two runs against each other in real time.
+Most personalization demos show three static output cards side-by-side ("here's Conservative, here's Aggressive"). Kaleidos instead makes personalization *interrogable*: the user asks a live, natural-language counterfactual question — "What would you recommend if I were more aggressive?" — and Kaleidos replays its own reasoning pipeline under the new profile, then diffs the two runs against each other in real time.
 
 ### How it works
 1. The system caches the raw, profile-agnostic outputs from the three parallel agents (Signal, RAG/Fundamental, Sentiment) for the current market snapshot — this is the "unchanged substrate."
 2. On a counterfactual query, only the Profiling Layer re-executes with the new risk profile; the underlying agent evidence is never re-fetched or re-generated.
-3. Lumen computes a structured diff between the two synthesis runs: which agent conclusions were reweighted, which risk constraints activated or deactivated, and how the final recommendation label changed (e.g. Hold → Reduce).
+3. Kaleidos computes a structured diff between the two synthesis runs: which agent conclusions were reweighted, which risk constraints activated or deactivated, and how the final recommendation label changed (e.g. Hold → Reduce).
 4. The diff is rendered as a single explanatory trace: *unchanged market signals → changed agent weighting → changed constraint → changed recommendation → stated reason.*
 
 ### Why it is technically interesting
@@ -121,7 +121,7 @@ It's the difference between "we personalized the output" (claimed) and "watch th
 It directly operationalizes the hardest minimum requirement — proving personalization changes outputs on identical inputs — by making the *mechanism* of that change visible and explainable, not just the *result*. It also stress-tests and showcases the explainability system, since a counterfactual diff is only trustworthy if every step is cited and traceable.
 
 ### How it can be demonstrated live in under 60 seconds
-Judge picks a stock → Lumen shows the Moderate recommendation with full reasoning (≈20s) → judge asks "what if I were Aggressive?" → Lumen streams the diff trace showing the same signals, one reweighted agent conclusion, one deactivated risk constraint, and the changed recommendation with a one-line "why" (≈20s) → judge asks "and Conservative?" and sees the opposite shift instantly (≈15s).
+Judge picks a stock → Kaleidos shows the Moderate recommendation with full reasoning (≈20s) → judge asks "what if I were Aggressive?" → Kaleidos streams the diff trace showing the same signals, one reweighted agent conclusion, one deactivated risk constraint, and the changed recommendation with a one-line "why" (≈20s) → judge asks "and Conservative?" and sees the opposite shift instantly (≈15s).
 
 ---
 
@@ -173,7 +173,7 @@ Because the three source agents never re-run, the diff between profiles is alway
 2. Live session view populates: Signal Agent classifies momentum as Bullish (confidence 0.82, cited on 5-day price/volume delta); RAG Agent retrieves a synthetic filing chunk flagging a pending regulatory review (cited, confidence 0.71); Sentiment Agent reads mixed social/news sentiment (confidence 0.58).
 3. Synthesis Layer combines the three into a single "Hold — elevated conviction on momentum, tempered by regulatory uncertainty" recommendation, explicitly flagging the technical/regulatory conflict.
 4. Profiling Layer applies the current (Moderate) profile, producing the final personalized recommendation with position-size guidance.
-5. Judge triggers the counterfactual: "What if I were Aggressive?" → Lumen replays only the Profiling Layer, shows the unchanged agent evidence, the reweighted momentum signal, the deactivated conservative constraint, and a new recommendation ("Add — small size") with a one-line causal explanation.
+5. Judge triggers the counterfactual: "What if I were Aggressive?" → Kaleidos replays only the Profiling Layer, shows the unchanged agent evidence, the reweighted momentum signal, the deactivated conservative constraint, and a new recommendation ("Add — small size") with a one-line causal explanation.
 6. Judge triggers "What if I were Conservative?" → opposite shift shown instantly, reinforcing the mechanism.
 7. Portfolio panel updates to reflect the hypothetical position change; performance log records the session's latency and confidence metrics live.
 
